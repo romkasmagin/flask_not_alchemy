@@ -30,7 +30,7 @@ def main():
                     description TEXT NOT NULL,
                     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                     status BOOLEAN NOT NULL,
-                    categories INT REFERENCES categories(id)
+                    categories INT REFERENCES categories(id) NOT NULL
                 );
                 """
             )
@@ -44,10 +44,10 @@ def main():
 
             cursor.execute(
                 """
-                INSERT INTO task (title, description, status)
-                VALUES ('Create main page', 'Create commits', FALSE),
-                ('Create edit page', 'Create commits', FALSE),
-                ('Create delete function', 'Create commits', FALSE)
+                INSERT INTO task (title, description, status, categories)
+                VALUES ('Create main page', 'Create commits', FALSE, 2),
+                ('Create edit page', 'Create commits', FALSE, 2),
+                ('Create delete function', 'Create commits', FALSE, 2)
                 """
             )
 
