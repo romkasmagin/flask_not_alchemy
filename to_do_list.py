@@ -42,10 +42,48 @@ def get_all_categories():
     return categories_data
 
 
+def get_category_tasks(category_id):
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(
+                f"""
+                SELECT task.id, task.title, 
+                task.description, task.created, task.status, categories.title
+                FROM task 
+                INNER JOIN categories ON categories.id = task.categories
+
+                WHERE task.categories = {category_id};
+                """
+            )
+            my_tasks = cursor.fetchall()
+
+    tasks_data = list()
+
+    for task in my_tasks:
+        tasks_data.append(
+            {
+                'id': task[0],
+                'title': task[1],
+                'description': task[2],
+                'created': task[3],
+                'status': task[4],
+                'category': task[5]
+            }
+        )
+
+    return tasks_data
+
+
 @app.route('/')
 def index():
     categories = get_all_categories()
     return render_template('index.html', categories=categories)
+
+
+@app.route('/<int:category_id>/tasks')
+def tasks(category_id):
+    categories_tasks = get_category_tasks(category_id)
+    return render_template('category_tasks.html', tasks=categories_tasks)
 
 
 if __name__ == '__main__':

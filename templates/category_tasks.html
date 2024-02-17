@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+</head>
+<body>
+  <h2>Tasks for category '{{ tasks[0]['category'] }}'</h2>
+  <hr>
+  <br>
+    {% for task in tasks %}
+        <div>
+            <h2>{{ task['title'] }}</h2>
+            <p>{{ task['description'] }}</p>
+            <p>{{ task['created'] }}</p>
+            {% if task['status'] == True %}
+                <p style="color: green">Done</p>
+            {% else %}
+                <p style="color: red">In progress</p>
+            {% endif %}
+        </div>
+        <hr>
+    {% endfor %}
+</body>
+</html>
