@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList</title>
+</head>
+<body>
+  <h1 align="center">ToDoList</h1>
+    {% for category in categories %}
+        <div>
+            <h2>Title: {{ category['title'] }}</h2>
+        </div>
+        <hr>
+    {% endfor %}
+</body>
+</html>

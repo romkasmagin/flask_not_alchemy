@@ -38,20 +38,19 @@ def main():
             cursor.execute(
                 """
                 INSERT INTO categories (title)
-                VALUES ('Make ToDoList');
+                VALUES ('Make git commits');
                 """
             )
 
             cursor.execute(
                 """
                 INSERT INTO task (title, description, status)
-                VALUES ('Create main page', 'Create html and python scripts', FALSE),
-                ('Create edit page', 'Create html and python scripts', FALSE),
-                ('Create delete function', 'Create html and python scripts', FALSE)
+                VALUES ('Create main page', 'Create commits', FALSE),
+                ('Create edit page', 'Create commits', FALSE),
+                ('Create delete function', 'Create commits', FALSE)
                 """
             )
 
 
 if __name__ == '__main__':
     main()
-
