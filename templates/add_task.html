@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>{% block title %} Create a New Post {% endblock %}</h1>
+
+<form method="post">
+    <!--Title-->
+    <div>
+        <label for="title">Task: </label>
+        <input type="text" name="title"
+               placeholder="Post title"
+               value="{{ request.form['title'] }}"/>
+    </div>
+    <!--description-->
+    <div>
+        <label for="description">Description: </label>
+        <textarea name="description" placeholder="Post content">
+            {{ request.form['description'] }}
+        </textarea>
+    </div>
+    <div>
+      <label for="categories">Выберите категорию:</label>
+      <select name="categories">
+          {% for category in categories %}
+            <option value="{{ category['id'] }}" label="{{ category['title'] }}"></option>
+          {% endfor %}
+      </select>
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+</body>
+</html>

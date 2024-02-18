@@ -35,7 +35,7 @@ def get_all_categories():
         categories_data.append(
             {
                 'id': category[0],
-                'title': category[1]
+                'title': category[1],
             }
         )
 
@@ -84,6 +84,35 @@ def index():
 def tasks(category_id):
     categories_tasks = get_category_tasks(category_id)
     return render_template('category_tasks.html', tasks=categories_tasks)
+
+
+@app.route('/add-task', methods=['GET', 'POST'])
+def add_task():
+    if request.method == 'POST':
+        title = str(request.form['title'])
+        description = str(request.form['description'])
+        category = str(request.form['categories'])
+
+        if not title or not description or not category:
+            flash('Title, content and author are required!')
+        else:
+            with get_connection() as conn:
+                with conn.cursor() as cursor:
+                    cursor.execute(
+                        f"""INSERT INTO task (title,
+                                              description,
+                                              categories,
+                                              status)
+                        VALUES ('{title}',
+                                '{description}',
+                                '{category}',
+                                'FALSE')"""
+                    )
+                    conn.commit()
+
+            return redirect('/add-task')
+    categories_tasks = get_all_categories()
+    return render_template('add_task.html', categories=categories_tasks)
 
 
 if __name__ == '__main__':
