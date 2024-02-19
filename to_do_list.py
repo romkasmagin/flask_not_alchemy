@@ -150,6 +150,28 @@ def add_category():
     return render_template('add_category.html', categories=categories_tasks)
 
 
+@app.route('/<int:category_id>/edit-category', methods=['GET', 'POST'])
+def edit_category(category_id):
+    if request.method == 'POST':
+        title = str(request.form['title'])
+
+        if not title:
+            flash('Title, content and author are required!')
+        else:
+            with get_connection() as conn:
+                with conn.cursor() as cursor:
+                    cursor.execute(
+                        f"""UPDATE categories
+                            SET title = '{title}'
+                            WHERE id = '{category_id}';"""
+                    )
+                    conn.commit()
+
+            return redirect('/')
+    category = get_category_tasks(category_id)
+    return render_template('add_category.html', category=category)
+
+
 @app.route('/<int:category_id>/delete_cat', methods=['POST', ])
 def delete_category(category_id):
     with get_connection() as conn:
