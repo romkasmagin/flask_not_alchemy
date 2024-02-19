@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ToDoList</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
   <h1 align="center">ToDoList</h1>
     {% for category in categories %}
-        <div>
+        <a href="{{ url_for('tasks', category_id=category['id']) }}">
             <h2>{{ category['title'] }}</h2>
-        </div>
+        </a>
         <hr>
     {% endfor %}
-</body>
-</html>
+{% endblock %}

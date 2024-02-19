@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{% block title %} Create a New Post {% endblock %}</h1>
+
+<form method="post">
+    <!--Title-->
+    <div>
+        <label for="title">Category: </label>
+        <input type="text" name="title"
+               placeholder="Post title"
+               value="{{ request.form['title'] }}"/>
+    </div>
+
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+</body>
+</html>
+
+{% endblock %}

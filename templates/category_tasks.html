@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Tasks</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
   <h2>Tasks for category '{{ tasks[0]['category'] }}'</h2>
   <hr>
   <br>
@@ -22,5 +17,4 @@
         </div>
         <hr>
     {% endfor %}
-</body>
-</html>
+{% endblock %}

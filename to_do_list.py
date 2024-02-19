@@ -70,8 +70,10 @@ def get_category_tasks(category_id):
                 'category': task[5]
             }
         )
-
-    return tasks_data
+    if tasks_data:
+        return tasks_data
+    else:
+        return None
 
 
 @app.route('/')
@@ -83,7 +85,10 @@ def index():
 @app.route('/<int:category_id>/tasks')
 def tasks(category_id):
     categories_tasks = get_category_tasks(category_id)
-    return render_template('category_tasks.html', tasks=categories_tasks)
+    if categories_tasks:
+        return render_template('category_tasks.html', tasks=categories_tasks)
+    else:
+        return redirect('/')
 
 
 @app.route('/add-task', methods=['GET', 'POST'])
@@ -113,6 +118,27 @@ def add_task():
             return redirect('/add-task')
     categories_tasks = get_all_categories()
     return render_template('add_task.html', categories=categories_tasks)
+
+
+@app.route('/add-category', methods=['GET', 'POST'])
+def add_category():
+    if request.method == 'POST':
+        title = str(request.form['title'])
+
+        if not title:
+            flash('Title, content and author are required!')
+        else:
+            with get_connection() as conn:
+                with conn.cursor() as cursor:
+                    cursor.execute(
+                        f"""INSERT INTO categories (title)
+                        VALUES ('{title}')"""
+                    )
+                    conn.commit()
+
+            return redirect('/')
+    categories_tasks = get_all_categories()
+    return render_template('add_category.html', categories=categories_tasks)
 
 
 if __name__ == '__main__':

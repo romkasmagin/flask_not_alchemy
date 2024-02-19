@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To-Do-List</title>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index')}}">Categories</a>
+        <a href="{{ url_for('add_task')}}">Create task</a>
+        <a href="{{ url_for('add_category')}}">Create category</a>
+    </nav>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
