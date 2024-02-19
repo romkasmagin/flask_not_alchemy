@@ -5,6 +5,10 @@
         <a href="{{ url_for('tasks', category_id=category['id']) }}">
             <h2>{{ category['title'] }}</h2>
         </a>
+        <form action="{{ url_for('delete_category', category_id=category['id']) }}" method="POST">
+            <input type="submit" value="Delete category"
+                   onclick="return confirm('Are you sure you want to delete this category?')">
+        </form>
         <hr>
     {% endfor %}
 {% endblock %}

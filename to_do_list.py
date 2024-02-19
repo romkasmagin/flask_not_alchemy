@@ -120,6 +120,15 @@ def add_task():
     return render_template('add_task.html', categories=categories_tasks)
 
 
+@app.route('/<int:task_id>/delete', methods=['POST', ])
+def delete_task(task_id):
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(f"""DELETE FROM task WHERE id = {task_id}""")
+            conn.commit()
+    return redirect('/')
+
+
 @app.route('/add-category', methods=['GET', 'POST'])
 def add_category():
     if request.method == 'POST':
@@ -139,6 +148,18 @@ def add_category():
             return redirect('/')
     categories_tasks = get_all_categories()
     return render_template('add_category.html', categories=categories_tasks)
+
+
+@app.route('/<int:category_id>/delete_cat', methods=['POST', ])
+def delete_category(category_id):
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(f"""DELETE FROM task 
+                               WHERE categories = {category_id};
+                               DELETE FROM categories WHERE id = {category_id};
+                            """)
+            conn.commit()
+    return redirect('/')
 
 
 if __name__ == '__main__':
